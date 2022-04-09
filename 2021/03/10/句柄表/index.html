@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="HANDLE_TABLE每个进程都有一个句柄表，内核也有一个句柄表ObpKernelHandleTable，还有全局进程线程句柄表PspCidTable 都是HANDLE_TABLE结构 12345678910111213141516172: kd&gt; dt _HANDLE_TABLE poi(PspCidTable)ntdll!_HANDLE_TABLE   +0x000 TableCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="句柄表">
+<meta property="og:url" content="http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/index.html">
+<meta property="og:site_name" content="sh1xo&#39;s Blog">
+<meta property="og:description" content="HANDLE_TABLE每个进程都有一个句柄表，内核也有一个句柄表ObpKernelHandleTable，还有全局进程线程句柄表PspCidTable 都是HANDLE_TABLE结构 12345678910111213141516172: kd&gt; dt _HANDLE_TABLE poi(PspCidTable)ntdll!_HANDLE_TABLE   +0x000 TableCode">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-10T02:19:37.000Z">
+<meta property="article:modified_time" content="2022-04-09T17:23:13.712Z">
+<meta property="article:author" content="sh1xo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>句柄表</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">sh1xo&#39;s Blog</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&text=句柄表"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&is_video=false&description=句柄表"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=句柄表&body=Check out this article: http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&name=句柄表&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HANDLE-TABLE"><span class="toc-number">1.</span> <span class="toc-text">HANDLE_TABLE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ExMapHandleToPointerEx"><span class="toc-number">2.</span> <span class="toc-text">ExMapHandleToPointerEx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ExEnumHandleTable"><span class="toc-number">3.</span> <span class="toc-text">ExEnumHandleTable</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        句柄表
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sh1xo's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-03-10T02:19:37.000Z" itemprop="datePublished">2021-03-10</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="HANDLE-TABLE"><a href="#HANDLE-TABLE" class="headerlink" title="HANDLE_TABLE"></a>HANDLE_TABLE</h2><p>每个进程都有一个句柄表，内核也有一个句柄表ObpKernelHandleTable，还有全局进程线程句柄表PspCidTable</p>
+<p>都是HANDLE_TABLE结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dt _HANDLE_TABLE poi(PspCidTable)</span><br><span class="line">ntdll!_HANDLE_TABLE</span><br><span class="line">   +0x000 TableCode        : 0xfffff8a0`019ac001</span><br><span class="line">   +0x008 QuotaProcess     : (null) </span><br><span class="line">   +0x010 UniqueProcessId  : (null) </span><br><span class="line">   +0x018 HandleLock       : _EX_PUSH_LOCK</span><br><span class="line">   +0x020 HandleTableList  : _LIST_ENTRY [ 0xfffff8a0`000049e0 - 0xfffff8a0`000049e0 ]</span><br><span class="line">   +0x030 HandleContentionEvent : _EX_PUSH_LOCK</span><br><span class="line">   +0x038 DebugInfo        : (null) </span><br><span class="line">   +0x040 ExtraInfoPages   : 0n0</span><br><span class="line">   +0x044 Flags            : 1</span><br><span class="line">   +0x044 StrictFIFO       : 0y1</span><br><span class="line">   +0x048 FirstFreeHandle  : 0x8a4</span><br><span class="line">   +0x050 LastFreeHandleEntry : 0xfffff8a0`019ad0d0 _HANDLE_TABLE_ENTRY</span><br><span class="line">   +0x058 HandleCount      : 0x1ca</span><br><span class="line">   +0x05c NextHandleNeedingPool : 0xc00</span><br><span class="line">   +0x060 HandleCountHighWatermark : 0x244termark : Uint4B</span><br></pre></td></tr></table></figure>
+
+<p>HandleTableList将所有句柄表连接起来,链表头为全局变量HandleTableListHead</p>
+<p>TableCode指向句柄数组，可能是多维数组，具体需要根据TableCode的最低一位掩码来判断,</p>
+<p>例如这里最低一位掩码为1，表示有两层，顶层地址为: 0xfffff8a0&#96;019ac000</p>
+<p>0表示有一层，2表示有三层</p>
+<p>除了最底层，上层都是指针数组，指向每个下一层</p>
+<p>这里查看底层数组有3个，每个都是HANDLE_TABLE_ENTRY数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dq 0xfffff8a0`019ac000</span><br><span class="line">fffff8a0`019ac000  fffff8a0`00005000 fffff8a0`019ad000</span><br><span class="line">fffff8a0`019ac010  fffff8a0`0240e000 00000000`00000000</span><br><span class="line">fffff8a0`019ac020  00000000`00000000 00000000`00000000</span><br><span class="line">fffff8a0`019ac030  00000000`00000000 00000000`00000000</span><br></pre></td></tr></table></figure>
+
+<p>查看第一个HANDLE_TABLE_ENTRY数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dq  fffff8a0`00005000</span><br><span class="line">fffff8a0`00005000  00000000`00000000 72f03b48`fffffffe</span><br><span class="line">fffff8a0`00005010  fffffa80`06cae101 00000000`00000000</span><br><span class="line">fffff8a0`00005020  fffffa80`06d2c041 00000000`00000000</span><br><span class="line">fffff8a0`00005030  fffffa80`06e3cb51 fffffa80`00000000</span><br><span class="line">fffff8a0`00005040  fffffa80`06d45b51 fffffa80`00000000</span><br><span class="line">fffff8a0`00005050  fffffa80`06e43041 fffffa80`00000000</span><br><span class="line">fffff8a0`00005060  fffffa80`06e12041 fffffa80`00000000</span><br><span class="line">fffff8a0`00005070  fffffa80`06d50041 fffffa80`00000000 </span><br><span class="line"></span><br><span class="line">2: kd&gt; dt _HANDLE_TABLE_ENTRY</span><br><span class="line">ntdll!_HANDLE_TABLE_ENTRY</span><br><span class="line">   +0x000 Object           : Ptr64 Void</span><br><span class="line">   +0x000 ObAttributes     : Uint4B</span><br><span class="line">   +0x000 InfoTable        : Ptr64 _HANDLE_TABLE_ENTRY_INFO</span><br><span class="line">   +0x000 Value            : Uint8B</span><br><span class="line">   +0x008 GrantedAccess    : Uint4B</span><br><span class="line">   +0x008 GrantedAccessIndex : Uint2B</span><br><span class="line">   +0x00a CreatorBackTraceIndex : Uint2B</span><br><span class="line">   +0x008 NextFreeTableEntry : Uint4B </span><br><span class="line"></span><br><span class="line">2: kd&gt; ?? sizeof(_HANDLE_TABLE_ENTRY)</span><br><span class="line">unsigned int64 0x10</span><br></pre></td></tr></table></figure>
+
+<p>HANDLE_TABLE_ENTRY的Object成员指向对象的对象头，GrantedAcess是这个句柄的权限</p>
+<p>注意PspCidTable是特殊的，它其中的Object直接指向对象，而不是对象头</p>
+<p>Object需要掩去最后一位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dt _HANDLE_TABLE_ENTRY fffff8a0`00005010</span><br><span class="line">ntdll!_HANDLE_TABLE_ENTRY</span><br><span class="line">   +0x000 Object           : 0xfffffa80`06cae101 Void</span><br><span class="line">   +0x000 ObAttributes     : 0x6cae101</span><br><span class="line">   +0x000 InfoTable        : 0xfffffa80`06cae101 _HANDLE_TABLE_ENTRY_INFO</span><br><span class="line">   +0x000 Value            : 0xfffffa80`06cae101</span><br><span class="line">   +0x008 GrantedAccess    : 0</span><br><span class="line">   +0x008 GrantedAccessIndex : 0</span><br><span class="line">   +0x00a CreatorBackTraceIndex : 0</span><br><span class="line">   +0x008 NextFreeTableEntry : 0</span><br><span class="line">2: kd&gt; !process 0xfffffa80`06cae100 0</span><br><span class="line">PROCESS fffffa8006cae100</span><br><span class="line">    SessionId: none  Cid: 0004    Peb: 00000000  ParentCid: 0000</span><br><span class="line">    DirBase: 00187000  ObjectTable: fffff8a0000018b0  HandleCount: 506.</span><br><span class="line">    Image: System</span><br></pre></td></tr></table></figure>
+
+<p>数组总大小有4096字节，每个HANDLE_TABLE_ENTRY是16字节，所以每个数组最多256个句柄，第一个底层数组的第一项不使用，通过如下公式可由句柄值找到对应对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=(句柄值/4)/256</span><br><span class="line"></span><br><span class="line">j=(句柄值/4)%256</span><br><span class="line"></span><br><span class="line">entry=句柄表[i][j]</span><br></pre></td></tr></table></figure>
+
+<h2 id="ExMapHandleToPointerEx"><a href="#ExMapHandleToPointerEx" class="headerlink" title="ExMapHandleToPointerEx"></a>ExMapHandleToPointerEx</h2><p>给定句柄和句柄表，找到对应的HANDLE_TABLE_ENTRY</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">PHANDLE_TABLE_ENTRY</span><br><span class="line"><span class="title function_">ExMapHandleToPointerEx</span> <span class="params">(</span></span><br><span class="line"><span class="params">    IN PHANDLE_TABLE HandleTable,</span></span><br><span class="line"><span class="params">    IN HANDLE Handle,</span></span><br><span class="line"><span class="params">    IN KPROCESSOR_MODE PreviousMode</span></span><br><span class="line"><span class="params">    )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*++</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Routine Description:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    This function maps a handle to a pointer to a handle table entry. If the</span></span><br><span class="line"><span class="comment">    map operation is successful then the handle table entry is locked when</span></span><br><span class="line"><span class="comment">    we return.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Arguments:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    HandleTable - Supplies a pointer to a handle table.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Handle - Supplies the handle to be mapped to a handle entry.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    PreviousMode - Previous mode of caller</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Return Value:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    If the handle was successfully mapped to a pointer to a handle entry,</span></span><br><span class="line"><span class="comment">    then the address of the handle table entry is returned as the function</span></span><br><span class="line"><span class="comment">    value with the entry locked. Otherwise, a value of NULL is returned.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ExEnumHandleTable"><a href="#ExEnumHandleTable" class="headerlink" title="ExEnumHandleTable"></a>ExEnumHandleTable</h2><p>给定句柄表和EnumHandleProced函数，对句柄表中每个HANDLE_TABLE_ENTRY执行NE EnumHandleProced函数</p>
+<p>EnumHandleTable前后需要分别使用ObReferenceProcessHandleTable和ObDereferenceProcessHandleTable对句柄表进行锁定和解锁</p>
+<p>注意EX_ENUMERATE_HANDLE_ROUTINE类型不同os版本定义不同</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">BOOLEAN</span><br><span class="line"><span class="title function_">ExEnumHandleTable</span> <span class="params">(</span></span><br><span class="line"><span class="params">    IN PHANDLE_TABLE HandleTable,</span></span><br><span class="line"><span class="params">    IN EX_ENUMERATE_HANDLE_ROUTINE EnumHandleProcedure,</span></span><br><span class="line"><span class="params">    IN PVOID EnumParameter,</span></span><br><span class="line"><span class="params">    OUT PHANDLE Handle OPTIONAL</span></span><br><span class="line"><span class="params">    )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*++</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Routine Description:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    This function enumerates all the valid handles in a handle table.</span></span><br><span class="line"><span class="comment">    For each valid handle in the handle table, the specified eumeration</span></span><br><span class="line"><span class="comment">    function is called. If the enumeration function returns TRUE, then</span></span><br><span class="line"><span class="comment">    the enumeration is stopped, the current handle is returned to the</span></span><br><span class="line"><span class="comment">    caller via the optional Handle parameter, and this function returns</span></span><br><span class="line"><span class="comment">    TRUE to indicated that the enumeration stopped at a specific handle.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Arguments:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    HandleTable - Supplies a pointer to a handle table.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    EnumHandleProcedure - Supplies a pointer to a fucntion to call for</span></span><br><span class="line"><span class="comment">        each valid handle in the enumerated handle table.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    EnumParameter - Supplies an uninterpreted 32-bit value that is passed</span></span><br><span class="line"><span class="comment">        to the EnumHandleProcedure each time it is called.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Handle - Supplies an optional pointer a variable that receives the</span></span><br><span class="line"><span class="comment">        Handle value that the enumeration stopped at. Contents of the</span></span><br><span class="line"><span class="comment">        variable only valid if this function returns TRUE.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Return Value:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    If the enumeration stopped at a specific handle, then a value of TRUE</span></span><br><span class="line"><span class="comment">    is returned. Otherwise, a value of FALSE is returned.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">--*/</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title function_">typedef</span> <span class="params">(BOOLEAN *EX_ENUMERATE_HANDLE_ROUTINE)</span><span class="params">(</span></span><br><span class="line"><span class="params">    IN PHANDLE_TABLE_ENTRY HandleTableEntry,</span></span><br><span class="line"><span class="params">    IN HANDLE Handle,</span></span><br><span class="line"><span class="params">    IN PVOID EnumParameter)</span> <span class="comment">//返回FALSE继续遍历，返回TRUE不继续遍历</span></span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HANDLE-TABLE"><span class="toc-number">1.</span> <span class="toc-text">HANDLE_TABLE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ExMapHandleToPointerEx"><span class="toc-number">2.</span> <span class="toc-text">ExMapHandleToPointerEx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ExEnumHandleTable"><span class="toc-number">3.</span> <span class="toc-text">ExEnumHandleTable</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&text=句柄表"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&is_video=false&description=句柄表"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=句柄表&body=Check out this article: http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&title=句柄表"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2021/03/10/%E5%8F%A5%E6%9F%84%E8%A1%A8/&name=句柄表&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 sh1xo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>
