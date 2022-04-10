@@ -9,19 +9,19 @@
     <meta name="description" content="对象目录windows使用对象目录对命名对象进行统一组织和管理，对象目录是由多个节点连接而成的树状结构，树的根是是一个目录对象(OBJECT_DIRECTORY)，树的每个节点都是一个对象。除根节点外，树的所有中间节点都必须是目录对象或符号连接对象(OBJECT_SYMBOLIC_LINK)，普通的对象则只能成为叶节点。 对于对象目录中的任何节点，如果从根节点或某个中间节点开始逐节向此节点前进，记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对象管理">
-<meta property="og:url" content="http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:url" content="http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="sh1xo&#39;s Blog">
 <meta property="og:description" content="对象目录windows使用对象目录对命名对象进行统一组织和管理，对象目录是由多个节点连接而成的树状结构，树的根是是一个目录对象(OBJECT_DIRECTORY)，树的每个节点都是一个对象。除根节点外，树的所有中间节点都必须是目录对象或符号连接对象(OBJECT_SYMBOLIC_LINK)，普通的对象则只能成为叶节点。 对于对象目录中的任何节点，如果从根节点或某个中间节点开始逐节向此节点前进，记">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/%E5%AF%B9%E8%B1%A1%E7%9B%AE%E5%BD%95.jpg?raw=true">
-<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg?raw=true">
-<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/ObpFreeObject_1.png?raw=true">
-<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/ObpFreeObject_2.png?raw=true">
-<meta property="article:published_time" content="2022-03-20T05:34:51.000Z">
-<meta property="article:modified_time" content="2022-04-10T05:38:22.664Z">
+<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/%E5%AF%B9%E8%B1%A1%E7%9B%AE%E5%BD%95.jpg?raw=true">
+<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg?raw=true">
+<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/ObpFreeObject_1.png?raw=true">
+<meta property="og:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/ObpFreeObject_2.png?raw=true">
+<meta property="article:published_time" content="2021-03-20T05:34:51.000Z">
+<meta property="article:modified_time" content="2022-04-10T05:46:10.344Z">
 <meta property="article:author" content="sh1xo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/%E5%AF%B9%E8%B1%A1%E7%9B%AE%E5%BD%95.jpg?raw=true">
+<meta name="twitter:image" content="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/%E5%AF%B9%E8%B1%A1%E7%9B%AE%E5%BD%95.jpg?raw=true">
     
     
         
@@ -116,7 +116,7 @@
       <ul>
         
         
-        <li><a class="icon" href="/2022/03/15/APC%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        <li><a class="icon" href="/2021/03/15/APC%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
@@ -129,16 +129,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&text=对象管理"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&is_video=false&description=对象管理"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=对象管理&body=Check out this article: http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&name=对象管理&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&text=对象管理"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&is_video=false&description=对象管理"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=对象管理&body=Check out this article: http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&name=对象管理&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -166,7 +166,7 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2022-03-20T05:34:51.000Z" itemprop="datePublished">2022-03-20</time>
+        <time datetime="2021-03-20T05:34:51.000Z" itemprop="datePublished">2021-03-20</time>
     </div>
 
 
@@ -183,7 +183,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dt _OBJECT_DIRECTORY</span><br><span class="line">nt!_OBJECT_DIRECTORY</span><br><span class="line">   +0x000 HashBuckets      : [37] Ptr64 _OBJECT_DIRECTORY_ENTRY</span><br><span class="line">   +0x128 Lock             : _EX_PUSH_LOCK</span><br><span class="line">   +0x130 DeviceMap        : Ptr64 _DEVICE_MAP</span><br><span class="line">   +0x138 SessionId        : Uint4B</span><br><span class="line">   +0x140 NamespaceEntry   : Ptr64 Void</span><br><span class="line">   +0x148 SessionObject    : Ptr64 Void</span><br><span class="line">   +0x150 Flags            : Uint4B </span><br><span class="line"></span><br><span class="line">2: kd&gt; dt _OBJECT_DIRECTORY_ENTRY</span><br><span class="line">nt!_OBJECT_DIRECTORY_ENTRY</span><br><span class="line">   +0x000 ChainLink        : Ptr64 _OBJECT_DIRECTORY_ENTRY</span><br><span class="line">   +0x008 Object           : Ptr64 Void</span><br><span class="line">   +0x010 HashValue        : Uint4B</span><br></pre></td></tr></table></figure>
 
 <p>成员HashBuckets是个散列表，每个OBJECT_DIRECTORY_ENTRY指针维持一个队列，OBJECT_DIRECTORY_ENTRY结构起螺丝钉的作用，除根节点外的所有节点都要靠目录项结构才能插入目录，其中Object指向真正的对象</p>
-<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/%E5%AF%B9%E8%B1%A1%E7%9B%AE%E5%BD%95.jpg?raw=true"></p>
+<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/%E5%AF%B9%E8%B1%A1%E7%9B%AE%E5%BD%95.jpg?raw=true"></p>
 <p>例如\ObjectTypes目录下有所有的对象类型对象</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; !object 0xfffff8a000006970</span><br><span class="line">Object: fffff8a000006970  Type: (fffffa8006ca8b20) Directory</span><br><span class="line">    ObjectHeader: fffff8a000006940 (new version)</span><br><span class="line">    HandleCount: 0  PointerCount: 44</span><br><span class="line">    Directory Object: fffff8a000004850  Name: ObjectTypes</span><br><span class="line"></span><br><span class="line">    Hash Address          Type                      Name</span><br><span class="line">    ---- -------          ----                      ----</span><br><span class="line">     00  fffffa8006d788f0 Type                      TmTm</span><br><span class="line">     01  fffffa8006d527b0 Type                      Desktop</span><br><span class="line">         fffffa8006caeac0 Type                      Process</span><br><span class="line">     03  fffffa8006d2cf30 Type                      DebugObject</span><br><span class="line">     04  fffffa8006d52660 Type                      TpWorkerFactory</span><br><span class="line">     05  fffffa8006e357b0 Type                      Adapter</span><br><span class="line">         fffffa8006caee30 Type                      Token</span><br><span class="line">     08  fffffa8006d507b0 Type                      EventPair</span><br><span class="line">     09  fffffa800855df00 Type                      PcwObject</span><br><span class="line">         fffffa8006d4c2d0 Type                      WmiGuid</span><br><span class="line">     11  fffffa8006d21350 Type                      EtwRegistration</span><br><span class="line">     12  fffffa8006d68550 Type                      Session</span><br><span class="line">         fffffa8006de87b0 Type                      Timer</span><br><span class="line">     13  fffffa8006d50660 Type                      Mutant</span><br><span class="line">     16  fffffa8006d3e5b0 Type                      IoCompletion</span><br><span class="line">     17  fffffa8006d4b660 Type                      WindowStation</span><br><span class="line">         fffffa8006de8660 Type                      Profile</span><br><span class="line">     18  fffffa8006d78a40 Type                      File</span><br><span class="line">     21  fffffa8006dda5d0 Type                      Semaphore</span><br><span class="line">     23  fffffa8006d22350 Type                      EtwConsumer</span><br><span class="line">     25  fffffa8006d787a0 Type                      TmTx</span><br><span class="line">         fffffa8006ca89d0 Type                      SymbolicLink</span><br><span class="line">     26  fffffa80081a7bc0 Type                      FilterConnectionPort</span><br><span class="line">         fffffa8006d753b0 Type                      Key</span><br><span class="line">         fffffa8006d4b7b0 Type                      KeyedEvent</span><br><span class="line">         fffffa8006dda7b0 Type                      Callback</span><br><span class="line">     28  fffffa8006cae820 Type                      UserApcReserve</span><br><span class="line">         fffffa8006caec10 Type                      Job</span><br><span class="line">     29  fffffa8006e35660 Type                      Controller</span><br><span class="line">         fffffa8006cae6d0 Type                      IoCompletionReserve</span><br><span class="line">     30  fffffa8006d3e850 Type                      Device</span><br><span class="line">         fffffa8006ca8b20 Type                      Directory</span><br><span class="line">     31  fffffa8006e0b7a0 Type                      Section</span><br><span class="line">         fffffa8006e0b8f0 Type                      TmEn</span><br><span class="line">         fffffa8006cae970 Type                      Thread</span><br><span class="line">     32  fffffa8006ca8c70 Type                      Type</span><br><span class="line">     33  fffffa800783ccd0 Type                      FilterCommunicationPort</span><br><span class="line">         fffffa8006d9b220 Type                      PowerRequest</span><br><span class="line">     35  fffffa8006e0ba40 Type                      TmRm</span><br><span class="line">         fffffa8006e12690 Type                      Event</span><br><span class="line">     36  fffffa8006d9b080 Type                      ALPC Port</span><br><span class="line">         fffffa8006d3e700 Type                      Driver</span><br></pre></td></tr></table></figure>
 
@@ -232,11 +232,11 @@
 </tr>
 </tbody></table>
 <p>示意如下（图中大小，偏移，掩码不准，是32位下的）</p>
-<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg?raw=true"></p>
+<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg?raw=true"></p>
 <p>具体偏移根据InfoMask在全局数组ObpInfoMaskToOffset中得到</p>
 <p>通过逆向ObpFreeObject可以看出InfoMask的查找过程</p>
-<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/ObpFreeObject_1.png?raw=true"></p>
-<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/image/ObpFreeObject_2.png?raw=true"></p>
+<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/ObpFreeObject_1.png?raw=true"></p>
+<p><img src="https://github.com/C4n3xp/C4n3xp.github.io/blob/master/images/ObpFreeObject_2.png?raw=true"></p>
 <p>ObpInfoMaskToOffset中存放了对应各种InfoMask的偏移</p>
 <p>ObpInfoMaskToOffset[1]&#x3D;sizeof(OBJECT_HEADER_CREATOR_INFO)&#x3D;0x20</p>
 <p>ObpInfoMaskToOffset[2]&#x3D;sizeof(OBJECT_HEADER_NAME_INFO)&#x3D;0x20</p>
@@ -283,16 +283,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&text=对象管理"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&is_video=false&description=对象管理"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=对象管理&body=Check out this article: http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2022/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&name=对象管理&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&text=对象管理"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&is_video=false&description=对象管理"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=对象管理&body=Check out this article: http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&title=对象管理"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2021/03/20/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/&name=对象管理&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
