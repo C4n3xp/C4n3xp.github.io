@@ -9,7 +9,7 @@
     <meta name="description" content="Syscall快速系统调用借助MSR寄存器实现   IA32_LSTAR中存放着syscall时进入的系统入口地址nt!KiSystemCall64Shadow 12345678910115: kd&gt; rdmsr c0000082msr[c0000082] &#x3D; fffff800&#96;03fdfbc05: kd&gt; u fffff800&#96;03fdfbc0nt!KiSystemCall64Sha">
 <meta property="og:type" content="article">
 <meta property="og:title" content="系统调用">
-<meta property="og:url" content="http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/index.html">
+<meta property="og:url" content="https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/index.html">
 <meta property="og:site_name" content="sh1xo&#39;s Blog">
 <meta property="og:description" content="Syscall快速系统调用借助MSR寄存器实现   IA32_LSTAR中存放着syscall时进入的系统入口地址nt!KiSystemCall64Shadow 12345678910115: kd&gt; rdmsr c0000082msr[c0000082] &#x3D; fffff800&#96;03fdfbc05: kd&gt; u fffff800&#96;03fdfbc0nt!KiSystemCall64Sha">
 <meta property="og:locale" content="en_US">
@@ -129,16 +129,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&text=系统调用"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&is_video=false&description=系统调用"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=系统调用&body=Check out this article: http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&name=系统调用&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&text=系统调用"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&is_video=false&description=系统调用"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=系统调用&body=Check out this article: https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&name=系统调用&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -269,16 +269,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&text=系统调用"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&is_video=false&description=系统调用"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=系统调用&body=Check out this article: http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&name=系统调用&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&text=系统调用"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&is_video=false&description=系统调用"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=系统调用&body=Check out this article: https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&title=系统调用"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://sh1xo.cn/2021/03/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/&name=系统调用&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
